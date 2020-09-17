@@ -1,47 +1,39 @@
-//const fetch = require("node-fetch");
+fetch("http://localhost:3000/api/teddies")
+.then(response => response.json())
+.then(nounourses => listeProductNounours(nounourses));
 
-    fetch("http://localhost:3000/api/teddies")
-    .then(response => response.json())
-    .then(nounourses => listeProductNounours(nounourses));
-
-function addParagraphe(txt, price, description) {
-    let div = document.getElementsByClassName("produit")
-    let para = document.createElement("p")
-    let contenu = document.createTextNode(`${txt} coûte ${price/100} € ${description}`)
-    para.appendChild(contenu)
-    div.appendChild(para)
+function addPicture(parent, url) {
+    let eltImg = document.createElement('img');
+    eltImg.src = url;
+    parent.appendChild(eltImg);
 }
 
-function addTitle(txt) {
-    let div = document.getElementById("entete");
-    let title = document.createElement("h1");
-    title.style.textAlign = "center";
+function addName(parent, txt) {
+    let newPara = document.createElement('h4');
     let contenu = document.createTextNode(txt);
-    div.appendChild(title);
-    title.appendChild(contenu);
-    
+    parent.appendChild(newPara);
+    newPara.appendChild(contenu);
 }
 
+function addPrice(parent, price) {
+    let newParaPrice = document.createElement('p');
+    let contenu = document.createTextNode(`À partir de ${price/100} €`)
+    parent.appendChild(newParaPrice)
+    newParaPrice.appendChild(contenu);
+}
 
-function addDiv(txt, price, url) {
-    let div = document.getElementById("content");
-    let newDiv = document.createElement("div");
-    newDiv.className = "produit";
-    let newImg = document.createElement("img");
-    newImg.src = url
-    newImg.style.width = "50%"
-    newImg.style.height = "50%"
-    newImg.style.border = "1px solid black"
-    let createElt = document.createElement('p')
-    let contenu = document.createTextNode(`${txt} coûte ${price/100} €`)
+function addDiv(url, txt, price) {
+    let div = document.getElementById('content');
+    let newDiv = document.createElement('div');
+    newDiv.className = "product";
     div.appendChild(newDiv);
-    newDiv.appendChild(createElt);
-    createElt.appendChild(contenu);
-    newDiv.appendChild(newImg)
+    addPicture(newDiv, url);
+    addName(newDiv, txt);
+    addPrice(newDiv, price);
 }
 
 function listeProductNounours(nounourses) {
-    for (let nounours of nounourses) {
-        addDiv(nounours.name, nounours.price, nounours.imageUrl)
+    for (let nounours of nounourses) {  
+        addDiv(nounours.imageUrl, nounours.name, nounours.price);
     }
 }
