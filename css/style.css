@@ -1,7 +1,7 @@
 /*Style Police*/
 @font-face {
     font-family: 'Pacifico';
-    src: url("./polices/Pacifico.ttf");
+    src: url("../polices/Pacifico.ttf");
     font-weight: normal;
     font-style: normal;
 }
@@ -22,21 +22,43 @@ header {
     align-items: center;
     width: 100%;
     height: 150px;
-    background-color: grey;
+    background-color: darkgray;
+    color: firebrick;
 }
 
 header h1 {
     font-family: 'Pacifico',sans-serif;
-    color: brown;
     font-size: 3em;
     margin: 0;
 }
 
 header h2 {
     font-family: 'Pacifico', sans-serif;
-    color: brown;
     font-size: 1.5em;
     margin: 0;
+}
+
+h1 a {
+    text-decoration: none;
+    color: firebrick;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: bisque;
+    font-family: 'Arial', sans-serif;
+    height: 30px;
+    align-items: center;
+}
+
+li {
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
 }
 
 #content {
@@ -53,8 +75,8 @@ header h2 {
     align-items: center;
     border: solid 1px black;
     width: 300px;
-    height: 300px;
     margin: 30px;
+    padding-bottom: 20px;
 }
 
 .product p {
@@ -63,6 +85,8 @@ header h2 {
 
 .product h4 {
     margin-bottom: 10px;
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1.5em;
 }
 
 img {
@@ -75,20 +99,20 @@ footer {
     align-items: center;
     height: 60px;
     width: 100%;
-    background-color: grey;
+    background-color: darkgray;
 }
 
-nav {
+footer nav {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding-right: 2%;
     padding-left: 2%;
     font-family: 'Pacifico', sans-serif;
-    color: brown;
+    color: firebrick;
     font-size: 1.5em;
 }
 
-nav p {
+footer nav p {
     margin: 0;
 }

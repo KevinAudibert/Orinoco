@@ -2,12 +2,14 @@ fetch("http://localhost:3000/api/teddies")
 .then(response => response.json())
 .then(nounourses => listeProductNounours(nounourses));
 
+//Ajout balise img avec lien url de l'image
 function addPicture(parent, url) {
     let eltImg = document.createElement('img');
     eltImg.src = url;
     parent.appendChild(eltImg);
 }
 
+//Ajout de la balise H4 avec le nom du nounours
 function addName(parent, txt) {
     let newPara = document.createElement('h4');
     let contenu = document.createTextNode(txt);
@@ -15,6 +17,7 @@ function addName(parent, txt) {
     newPara.appendChild(contenu);
 }
 
+//Ajout balise <p> avec du texte affichant le prix
 function addPrice(parent, price) {
     let newParaPrice = document.createElement('p');
     let contenu = document.createTextNode(`À partir de ${price/100} €`)
@@ -22,6 +25,20 @@ function addPrice(parent, price) {
     newParaPrice.appendChild(contenu);
 }
 
+//Ajout d'un bouton avec lien vers autres pages
+function addBtn(parent) {
+    let div = document.createElement('form')
+    let bouton = document.createElement('input')
+    bouton.type="button"
+    bouton.value="Voir Produit"
+    bouton.onclick= function() {
+        document.location.href="../html/product.html"
+    }
+    parent.appendChild(div);
+    div.appendChild(bouton)
+}
+
+//Fonction qui créé une <div> et regroupe les autres fonction créées auparavant
 function addDiv(url, txt, price) {
     let div = document.getElementById('content');
     let newDiv = document.createElement('div');
@@ -30,8 +47,10 @@ function addDiv(url, txt, price) {
     addPicture(newDiv, url);
     addName(newDiv, txt);
     addPrice(newDiv, price);
+    addBtn(newDiv);
 }
 
+//Fonction avec une boucle sur le tableau puis fait appel une fonction
 function listeProductNounours(nounourses) {
     for (let nounours of nounourses) {  
         addDiv(nounours.imageUrl, nounours.name, nounours.price);
