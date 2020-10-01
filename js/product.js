@@ -55,7 +55,7 @@ function addDescription(parent, description) {
     parent.appendChild(newDescription);
     newDescription.appendChild(contenu);
 }
-
+//Ajout balise <form> dans html
 function addForm(parent) {
     let form = document.createElement('form');
     let para = document.createElement('p');
@@ -68,7 +68,7 @@ function addForm(parent) {
     form.appendChild(select);
     para.appendChild(contenu);
 }
-
+//Création balise html saisi quantité nounours
 function addBtnQuantity() {
     let div = document.getElementById('details')
     let label = document.createElement('label');
