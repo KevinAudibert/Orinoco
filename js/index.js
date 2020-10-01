@@ -20,26 +20,26 @@ function addName(parent, txt) {
 //Ajout balise <p> avec du texte affichant le prix
 function addPrice(parent, price) {
     let newParaPrice = document.createElement('p');
-    let contenu = document.createTextNode(`À partir de ${price/100} €`)
+    let contenu = document.createTextNode(`Au prix de ${price/100} €`)
     parent.appendChild(newParaPrice)
     newParaPrice.appendChild(contenu);
 }
 
 //Ajout d'un bouton avec lien vers autres pages
-function addBtn(parent) {
+function addBtn(parent, id) {
     let div = document.createElement('form')
     let bouton = document.createElement('input')
     bouton.type="button"
     bouton.value="Voir Produit"
     bouton.onclick= function() {
-        document.location.href="../html/product.html"
+        document.location.href=`../html/product.html?id=${id}`
     }
     parent.appendChild(div);
-    div.appendChild(bouton)
+    div.appendChild(bouton);
 }
 
 //Fonction qui créé une <div> et regroupe les autres fonction créées auparavant
-function addDiv(url, txt, price) {
+function addDiv(url, txt, price, id) {
     let div = document.getElementById('content');
     let newDiv = document.createElement('div');
     newDiv.className = "product";
@@ -47,12 +47,12 @@ function addDiv(url, txt, price) {
     addPicture(newDiv, url);
     addName(newDiv, txt);
     addPrice(newDiv, price);
-    addBtn(newDiv);
+    addBtn(newDiv, id);
 }
 
 //Fonction avec une boucle sur le tableau puis fait appel une fonction
 function listeProductNounours(nounourses) {
-    for (let nounours of nounourses) {  
-        addDiv(nounours.imageUrl, nounours.name, nounours.price);
+    for (let nounours of nounourses) {
+        addDiv(nounours.imageUrl, nounours.name, nounours.price, nounours._id);
     }
 }
