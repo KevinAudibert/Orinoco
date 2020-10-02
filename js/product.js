@@ -24,6 +24,7 @@ function displayName(singleNounours) {
         document.getElementById('colors').appendChild(eltOption)
     }
     addBtnQuantity()
+    addCart()
 }
 
 //Ajout balise img avec lien url de l'image
@@ -36,6 +37,7 @@ function addPicture(parent, url) {
 //Ajout de la balise H4 avec le nom du nounours
 function addName(parent, txt) {
     let newPara = document.createElement('h3');
+    newPara.id = "title_product"
     let contenu = document.createTextNode(txt);
     parent.appendChild(newPara);
     newPara.appendChild(contenu);
@@ -59,7 +61,7 @@ function addDescription(parent, description) {
 function addForm(parent) {
     let form = document.createElement('form');
     let para = document.createElement('p');
-    let contenu = document.createTextNode('Liste des couleurs disponibles : ');
+    let contenu = document.createTextNode('Couleurs disponibles : ');
     let select = document.createElement('select');
     select.name = 'colors'
     select.id = 'colors'
@@ -73,7 +75,7 @@ function addBtnQuantity() {
     let div = document.getElementById('details')
     let label = document.createElement('label');
     label.for="quantity"
-    let contenu = document.createTextNode('Quantité désiré : ')
+    let contenu = document.createTextNode('Quantité : ')
     let input = document.createElement('input')
     input.type= 'Number'
     input.id="quantity"
@@ -83,6 +85,16 @@ function addBtnQuantity() {
     div.appendChild(label);
     label.appendChild(contenu);
     label.appendChild(input)
+}
+//Ajout au panier
+function addCart() {
+    let div = document.getElementById('details')
+    let contenu = document.createTextNode('Ajouter au panier')
+    let btnAddCart = document.createElement('button');
+    btnAddCart.type='submit'
+    btnAddCart.onclick=''
+    div.appendChild(btnAddCart);
+    btnAddCart.appendChild(contenu);
 }
 
 //Fonction qui créé une <section> et regroupe les autres fonction créées auparavant
