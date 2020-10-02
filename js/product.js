@@ -4,7 +4,7 @@ function displayId() {
     var url_string = window.location.href
     var url = new URL(url_string);
     var id = url.searchParams.get("id");
-    fetch(`http://localhost:3000/api/teddies/${id}`)
+    fetch(`https://oc-p5-api.herokuapp.com/api/teddies/${id}`)
     .then (response => response.json())
     .then (singleNounours => {
         if(!singleNounours) {

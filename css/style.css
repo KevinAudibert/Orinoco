@@ -93,14 +93,24 @@ nav a {
     margin-top: 0;
 }
 
-.product h4 {
+.product h3 {
     margin-bottom: 10px;
     font-family: 'Pacifico', sans-serif;
     font-size: 1.5em;
 }
 
+.product_detail h3 {
+    margin-bottom: 10px;
+    font-family: 'Pacifico', sans-serif;
+    font-size: 2em;
+}
+
 img {
-    width: 300px;
+    width: 100%;
+}
+
+.product img {
+    width: 100%;
     height: 200px;
 }
 
@@ -138,6 +148,7 @@ footer nav p {
     margin: 3%;
     padding: 3%;
     background-color: white;
+    font-family: 'Arial', sans-serif;
 }
 
 .product_detail p {

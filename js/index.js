@@ -1,4 +1,4 @@
-fetch("http://localhost:3000/api/teddies")
+fetch("https://oc-p5-api.herokuapp.com/api/teddies")
 .then(response => response.json())
 .then(nounourses => listeProductNounours(nounourses));
 
@@ -9,9 +9,9 @@ function addPicture(parent, url) {
     parent.appendChild(eltImg);
 }
 
-//Ajout de la balise H4 avec le nom du nounours
+//Ajout de la balise H3 avec le nom du nounours
 function addName(parent, txt) {
-    let newPara = document.createElement('h4');
+    let newPara = document.createElement('h3');
     let contenu = document.createTextNode(txt);
     parent.appendChild(newPara);
     newPara.appendChild(contenu);
