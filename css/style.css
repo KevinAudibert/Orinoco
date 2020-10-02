@@ -170,3 +170,16 @@ select {
 button {
     margin: 20px;
 }
+
+/*Page Panier*/
+
+tr {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#content_table {
+    display: flex;
+    flex-direction: column;
+}
