@@ -1,5 +1,7 @@
 //const fetch = require("node-fetch");
 
+//const { json } = require("body-parser");
+
 function displayId() {
     var url_string = window.location.href
     var url = new URL(url_string);
@@ -86,15 +88,75 @@ function addBtnQuantity() {
     label.appendChild(contenu);
     label.appendChild(input)
 }
-//Ajout au panier
+
+function addToCart() {
+    var url_string = window.location.href
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
+    let color = document.getElementById('colors').value 
+    let quantity = document.getElementById('quantity').value
+
+    if (window.localStorage.getItem(id)) {
+
+            if (JSON.parse(window.localStorage.getItem(id)).color === color) {
+
+                let newQuantity = Number(JSON.parse(window.localStorage.getItem(id)).quantity)+Number(quantity)
+                
+                const product = {
+                    color,
+                    quantity : newQuantity
+                }
+
+                localStorage.setItem(id, JSON.stringify(product))
+            }
+            else {
+            }
+        return
+    }
+    else {
+        console.log('produit au panier')
+    }
+
+const product = {
+    color,
+    quantity,
+}
+
+    window.localStorage.setItem(id, JSON.stringify(product))
+    return
+}
+
+function displayCart() {
+    console.log(window.localStorage);
+}
+
+//Bouton, ajout au panier
 function addCart() {
     let div = document.getElementById('details')
     let contenu = document.createTextNode('Ajouter au panier')
     let btnAddCart = document.createElement('button');
     btnAddCart.type='submit'
-    btnAddCart.onclick=''
+    btnAddCart.addEventListener('click', addToCart)
     div.appendChild(btnAddCart);
     btnAddCart.appendChild(contenu);
+//bouton, afficher le panier
+    let btn = document.createElement('button');
+    let content = document.createTextNode('Afficher Panier');
+    btn.type='submit'
+    btn.addEventListener('click', displayCart)
+    div.appendChild(btn);
+    btn.appendChild(content);
+//bouton, supprimer totalement le panier
+    let btnRemove = document.createElement('button');
+    let contents = document.createTextNode('Supprimer Panier');
+    btnRemove.type='submit'
+    btnRemove.addEventListener('click', emptyCart)
+    div.appendChild(btnRemove);
+    btnRemove.appendChild(contents);
+}
+//fonction qui supprime le panier
+function emptyCart() {
+   window.localStorage.clear(); 
 }
 
 //Fonction qui créé une <section> et regroupe les autres fonction créées auparavant
