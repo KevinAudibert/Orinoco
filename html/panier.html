@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../css/style.css"/>
         <meta name="description" content="">
         <link rel="stylesheet" type="text/css" href="">
-        <script src="" ></script>
+        <script src="../js/panier.js" ></script>
         <title>Orinoc'Ours | Panier</title>
     </head>
 
@@ -25,27 +25,33 @@
 
         <main id="content">
             <section id="content_table">
-                <table class='table_cart'>
-                    <caption>Mon Panier</caption>
-                    <tr>
-                        <th>Article</th>
-                        <th id="id_produit"></th>
-                    </tr>
-                    <tr>
-                        <th>Couleur</th>
-                        <th id="color_produit"></th>
-                    </tr>
-                    <tr>
-                        <th>Quatité</th>
-                        <th id="quantity_produit"></th>
-                    </tr>
-                    <tr>
-                        <th>Prix</th>
-                        <th id="price_produit"></th>
-                    </tr>
-                </table>
-                <p>Sous Total : <span class="subtotal"></span> €</p>
-                <button id="confirm_command">Passer la commande</button>
+
+            </section>
+            <section id="formulaire">
+                <form id="form">
+                    <h3>Formulaire à remplir</h3>
+                    <p>
+                        <label for=firstName>Prénom</label> :
+                        <input type="text" name="firstName" id="firstName" required>
+                    </p>
+                    <p>
+                        <label for="lastName">Nom</label> :
+                        <input type="text" name="lastName" id="lastName" required>
+                    </p>
+                    <p>
+                        <label for="email">E-mail</label> :
+                        <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
+                    </p>
+                    <p>
+                        <label for="address">Address</label> : 
+                        <input type="text" name="address" id="address" required>
+                    </p>
+                    <p>
+                        <label for="city">Ville</label> :
+                        <input type="text" name="city" id="city" required>
+                    </p>
+
+                </form>
             </section>
         </main>
 
@@ -61,4 +67,5 @@
             </nav>
         </footer>
     </body>
+    <script> createCart() </script>
 </html>

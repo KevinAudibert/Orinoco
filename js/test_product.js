@@ -1,10 +1,7 @@
-//variables Globales
-var url_string = window.location.href
-var url = new URL(url_string);
-var id = url.searchParams.get("id");
-const cart = []
+//const fetch = require("node-fetch");
 
-//Fonction qui permet de réccuperer l'id du produit
+//const { json } = require("body-parser");
+
 function displayId() {
     var url_string = window.location.href
     var url = new URL(url_string);
@@ -20,7 +17,6 @@ function displayId() {
     })
 }
 
-//fonction qui permet de créer le résumé du produit 
 function displayName(singleNounours) {
     addSection(singleNounours.imageUrl, singleNounours.name, singleNounours.price, singleNounours.description)
     for (let colors of singleNounours.colors) {
@@ -29,9 +25,8 @@ function displayName(singleNounours) {
         eltOption.value=colors
         document.getElementById('colors').appendChild(eltOption)
     }
-    //ajoute selecteur de quantiée
-    createSelectorQuantity()
-    btnAddCart()
+    addBtnQuantity()
+    addCart()
 }
 
 //Ajout balise img avec lien url de l'image
@@ -78,7 +73,7 @@ function addForm(parent) {
     para.appendChild(contenu);
 }
 //Création balise html saisi quantité nounours
-function createSelectorQuantity() {
+function addBtnQuantity() {
     let div = document.getElementById('details')
     let label = document.createElement('label');
     label.for="quantity"
@@ -94,41 +89,57 @@ function createSelectorQuantity() {
     label.appendChild(input)
 }
 
-//Fonction qui permet d'ajouter produit dans le panier
 function addToCart() {
+    var url_string = window.location.href
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
+    let color = document.getElementById('colors').value 
+    let quantity = document.getElementById('quantity').value
 
-    //Variables
-    let color = document.getElementById('colors').value
-    let quantity = Number(document.getElementById('quantity').value)
-    const product = {
-        color : color,
-        quantity : quantity,
-        id : id,
-    }
-    let isPresent = false
+    if (window.localStorage.getItem(id)) {
 
-    //boucle si couleur présente ajouter quantité, sinon ajouter produit
-    for (const [index, item] of cart.entries()) {
-        if (product.id === item.id && product.color === item.color) {
-            cart[index].quantity += product.quantity
-            console.log('la quantitée a été rajouté au panier')
-            isPresent = true
-        }
+            if (JSON.parse(window.localStorage.getItem(id))[0].color === color) {
+
+                let newQuantity = Number(JSON.parse(window.localStorage.getItem(id))[0].quantity)+Number(quantity)
+                const product = [{
+                    color,
+                    quantity : newQuantity
+                }]
+                window.localStorage.setItem(id, JSON.stringify(product))
+                console.log('produit rajouté au panier')
+            }
+            else {
+                
+                let pdt = JSON.parse(window.localStorage.getItem(id))
+                const newProduit = [{
+                    color,
+                    quantity,
+                }]
+                pdt.push(newProduit)
+                window.localStorage.setItem(id, JSON.stringify(pdt))
+                console.log('nouvelle couleur ajouté au panier')
+            }
+        return
     }
-        if (isPresent == false) {
-            cart.push(product)
-            console.log('La peluche a été ajouté au panier')
-        }
-    saveCart(cart)
+    else {
+        console.log('produit au panier')
+    }
+
+const product = [{
+    color,
+    quantity,
+}]
+    window.localStorage.setItem(id, JSON.stringify(product))
+    return
 }
 
-//Fonction qui permet de sauvegarder cart dans le localstorage
-function saveCart(cart) {
-    localStorage.setItem(id, JSON.stringify(cart))
+
+function displayCart() {
+    console.log(window.localStorage);
 }
 
 //Bouton, ajout au panier
-function btnAddCart() {
+function addCart() {
     let div = document.getElementById('details')
     let contenu = document.createTextNode('Ajouter au panier')
     let btnAddCart = document.createElement('button');
@@ -136,6 +147,24 @@ function btnAddCart() {
     btnAddCart.addEventListener('click', addToCart)
     div.appendChild(btnAddCart);
     btnAddCart.appendChild(contenu);
+//bouton, afficher le panier
+    let btn = document.createElement('button');
+    let content = document.createTextNode('Afficher Panier');
+    btn.type='submit'
+    btn.addEventListener('click', displayCart)
+    div.appendChild(btn);
+    btn.appendChild(content);
+//bouton, supprimer totalement le panier
+    let btnRemove = document.createElement('button');
+    let contents = document.createTextNode('Supprimer Panier');
+    btnRemove.type='submit'
+    btnRemove.addEventListener('click', emptyCart)
+    div.appendChild(btnRemove);
+    btnRemove.appendChild(contents);
+}
+//fonction qui supprime le panier
+function emptyCart() {
+   window.localStorage.clear(); 
 }
 
 //Fonction qui créé une <section> et regroupe les autres fonction créées auparavant
