@@ -98,9 +98,11 @@ function createSelectorQuantity() {
 function addToCart() {
 
     //Variables
+    let name = document.getElementById('title_product').textContent
     let color = document.getElementById('colors').value
     let quantity = Number(document.getElementById('quantity').value)
     const product = {
+        name : name,
         color : color,
         quantity : quantity,
         id : id,

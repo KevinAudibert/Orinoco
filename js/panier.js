@@ -14,12 +14,11 @@ function createCart() {
     for (let keys of Object.keys(localStorage)) {
 
         //On reprend tous les couleurs commandées d'un produit 
-        for (let productColor of JSON.parse(localStorage[keys])) {
+        for (let product of JSON.parse(localStorage[keys])) {
             let produit = document.createElement("article")
-            let contenu = document.createTextNode(`la Peluche ${keys} a été commandé en ${productColor.color}`)
+            let contenu = document.createTextNode(`la Peluche ${product.name} a été commandé en ${product.color}`)
             panier.appendChild(produit)
             produit.appendChild(contenu)
-            //console.log(`le produit ${keys} a été commandé en ${productColor.color}`)
         }
     }
 }
