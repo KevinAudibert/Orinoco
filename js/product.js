@@ -2,7 +2,7 @@
 var url_string = window.location.href
 var url = new URL(url_string);
 var id = url.searchParams.get("id");
-let cart = cartReformate()
+let cart = verifyCart()
 
 //Fonction qui permet de réccuperer l'id du produit
 function displayId() {
@@ -94,7 +94,7 @@ function createSelectorQuantity() {
     label.appendChild(input)
 }
 //fonction qui permet de voir si Localstorage vide (si vide alors [] et si plein retour au local storage)
-function cartReformate() {
+function verifyCart() {
     const cart = localStorage.getItem(id)
     //Si le cart est Vide alors retourne à un tableau vide
     if (cart === null) {

@@ -61,7 +61,6 @@ function cartCount() {
 
     //Zone du panier
     let total = 0
-
     //boucle qui reccup les keys du Panier
     for (let keys of Object.keys(localStorage)) {
         for (let product of JSON.parse(localStorage[keys])) {

@@ -23,38 +23,25 @@ function createCart() {
     }
 }
 
-//Retrieve data form 
-function retrieveFirstName() {
-    let firstNameForm = document.getElementById('firstName').nodeValue
-    console.log(JSON.stringify(firstNameForm))
-}
+function createFormSend() {
 
-function retrieveLastName() {
-    let lastNameForm = document.getElementById('lastName').nodeValue
-    console.log(JSON.stringify(lastNameForm))
-}
-
-function retrieveEmail() {
-    let emailForm = document.getElementById('email').nodeValue
-    console.log(JSON.stringify(emailForm))
-}
-
-function retrieveAddress() {
-    let addressForm = document.getElementById('address').nodeValue
-    console.log(JSON.stringify(addressForm))
-}
-
-function retrieveCity() {
-    let cityForm = document.getElementById('city').nodeValue
-    console.log(JSON.stringify(cityForm))
-}
-
-function blablaCity() {
-    retrieveFirstName();
-    retrieveLastName();
-    retrieveEmail();
-    retrieveAddress();
-    retrieveCity();
+    //variables qui reccupere les valeur du formulaire 
+    let firstNameForm = document.getElementById('firstName').value
+    let lastNameForm = document.getElementById('lastName').value
+    let emailForm = document.getElementById('email').value
+    let addressForm = document.getElementById('address').value
+    let cityForm = document.getElementById('city').value
+    // mise en forme du formulaire pour le send vers API
+    let contact = {
+        firstName : firstNameForm,
+        lastName : lastNameForm,
+        email : emailForm,
+        address : addressForm,
+        city : cityForm,
+    }
+    let products = []
+    let send = { contact, products }
+    console.log(JSON.stringify(send))
 }
 
 function btnSendOrder() {
@@ -62,7 +49,7 @@ function btnSendOrder() {
     let contenu = document.createTextNode('Envoyer')
     let btnSendForm = document.createElement('button');
     btnSendForm.type='submit'
-    btnSendForm.addEventListener('click', blablaCity)
+    btnSendForm.addEventListener('click', createFormSend())
     div.appendChild(btnSendForm);
     btnSendForm.appendChild(contenu);
 }
