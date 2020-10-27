@@ -2,14 +2,14 @@
 var url_string = window.location.href
 var url = new URL(url_string);
 var id = url.searchParams.get("id");
-const cart = []
+let cart = cartReformate()
 
 //Fonction qui permet de réccuperer l'id du produit
 function displayId() {
     var url_string = window.location.href
     var url = new URL(url_string);
     var id = url.searchParams.get("id");
-    fetch(`https://oc-p5-api.herokuapp.com/api/teddies/${id}`)
+    fetch(`http://localhost:3000/api/teddies/${id}`)
     .then (response => response.json())
     .then (singleNounours => {
         if(!singleNounours) {
@@ -93,6 +93,16 @@ function createSelectorQuantity() {
     label.appendChild(contenu);
     label.appendChild(input)
 }
+//fonction qui permet de voir si Localstorage vide (si vide alors [] et si plein retour au local storage)
+function cartReformate() {
+    const cart = localStorage.getItem(id)
+    //Si le cart est Vide alors retourne à un tableau vide
+    if (cart === null) {
+        return []
+    }
+    //Si le cart n'est pas vide alors retourne au tableau présent dans le LocalStorage 
+    return JSON.parse(cart)
+}
 
 //Fonction qui permet d'ajouter produit dans le panier
 function addToCart() {
@@ -101,7 +111,7 @@ function addToCart() {
     let name = document.getElementById('title_product').textContent
     let color = document.getElementById('colors').value
     let quantity = Number(document.getElementById('quantity').value)
-    const product = {
+    let product = {
         name : name,
         color : color,
         quantity : quantity,
@@ -109,8 +119,9 @@ function addToCart() {
     }
     let isPresent = false
 
-    //boucle si couleur présente ajouter quantité, sinon ajouter produit
-    for (const [index, item] of cart.entries()) {
+    //Boucle sur le tableau avec la methode .entries()
+    for (let [index, item] of cart.entries()) {
+        //Si id produit choisi est présent dans le localStorage ainsi que la couleur
         if (product.id === item.id && product.color === item.color) {
             cart[index].quantity += product.quantity
             console.log('la quantitée a été rajouté au panier')
@@ -118,9 +129,11 @@ function addToCart() {
         }
     }
         if (isPresent == false) {
+            //ajout de l'objet product dans le tableau 
             cart.push(product)
             console.log('La peluche a été ajouté au panier')
         }
+    //Appel de la fonction qui permet de sauvegarder le cart dans le LocalStorage
     saveCart(cart)
 }
 
@@ -152,4 +165,27 @@ function addSection(url, txt, price, description) {
     addPrice(newSection, price);
     addDescription(newSection, description);
     addForm(newSection)
+}
+
+//Fonction qui permet de faire la somme total de toutes les quantitées présente dans le localStorage
+function cartCount() {
+
+    //Variable initialisation du total à 0
+    let total = 0
+
+    //boucle qui reccup les keys du Panier
+    for (let keys of Object.keys(localStorage)) {
+        //boucle sur les objets de la clé pour ajouter les quantité au fur et a mesure
+        for (let product of JSON.parse(localStorage[keys])) {
+            total += product.quantity
+        }
+    }
+    addQuantityTotal(total)
+}
+
+//Fonction qui permet de mettre le total dans le DOM
+function addQuantityTotal(total) {
+    let cartQuantityTotal = document.getElementById('cart_count')
+    let contenu = document.createTextNode(total)
+    cartQuantityTotal.appendChild(contenu)
 }

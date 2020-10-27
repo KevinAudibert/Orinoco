@@ -1,4 +1,4 @@
-fetch("https://oc-p5-api.herokuapp.com/api/teddies")
+fetch("http://localhost:3000/api/teddies")
 .then(response => response.json())
 .then(nounourses => listeProductNounours(nounourses));
 
@@ -55,4 +55,24 @@ function listeProductNounours(nounourses) {
     for (let nounours of nounourses) {
         addDiv(nounours.imageUrl, nounours.name, nounours.price, nounours._id);
     }
+}
+
+function cartCount() {
+
+    //Zone du panier
+    let total = 0
+
+    //boucle qui reccup les keys du Panier
+    for (let keys of Object.keys(localStorage)) {
+        for (let product of JSON.parse(localStorage[keys])) {
+            total += product.quantity
+        }
+    }
+    addQuantityTotal(total)
+}
+
+function addQuantityTotal(total) {
+    let cartQuantityTotal = document.getElementById('cart_count')
+    let contenu = document.createTextNode(total)
+    cartQuantityTotal.appendChild(contenu)
 }
