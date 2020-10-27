@@ -17,6 +17,9 @@ html, body {
 
 body {
     background-color: lightyellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header {
@@ -181,6 +184,8 @@ tr {
 #content_table {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 #form {
