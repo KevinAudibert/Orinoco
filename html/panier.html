@@ -23,6 +23,8 @@
         </header>
 
         <main id="content">
+            <h3>Votre Panier</h3>
+
             <section id="content_table">
 
             </section>
@@ -31,19 +33,21 @@
                     <form id="form">
 
                         <label id='first_name' for=firstName>Prénom :</label>
-                        <input type="text" name="firstName" id="firstName" value="" required>
+                        <input type="text" name="firstName" id="firstName" required>
 
                         <label for="lastName">Nom :</label>
-                        <input type="text" name="lastName" id="lastName" value="" required>
+                        <input type="text" name="lastName" id="lastName" required>
 
                         <label for="email">E-mail :</label>
-                        <input type="email" name="email" id="email" value="" required placeholder="utilisateur@domaine.fr">
+                        <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
 
                         <label for="address">Adresse :</label>
-                        <input type="text" name="address" id="address" value="" required>
+                        <input type="text" name="address" id="address" required>
 
                         <label for="city">Ville :</label>
-                        <input type="text" name="city" id="city" value="" required>
+                        <input type="text" name="city" id="city" required>
+
+                        <button onclick="createFormSend()"> Passer Commande </button>
 
                     </form>
             </section>
@@ -62,5 +66,4 @@
         </footer>
     </body>
     <script> createCart() </script>
-    <script> btnSendOrder() </script>
 </html>

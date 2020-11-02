@@ -182,9 +182,6 @@ tr {
 }
 
 #content_table {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
 }
 
@@ -205,4 +202,16 @@ tr {
     line-height: 20px;
     border-radius: 20px;
     margin-left: 5px;
+}
+
+article {
+    display: flex;
+    justify-content: space-between;
+    border: 3px black outset;
+    margin: 10px;
+    padding: 5px;
+}
+
+article img { 
+    width: 30%;
 }
