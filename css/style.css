@@ -215,3 +215,12 @@ article {
 article img { 
     width: 30%;
 }
+
+#prix {
+    display: none;
+}
+
+#total_price {
+    width: 100%;
+    text-align: center;
+}

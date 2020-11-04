@@ -54,8 +54,13 @@ function addName(parent, txt) {
 function addPrice(parent, price) {
     let newParaPrice = document.createElement('p');
     let contenu = document.createTextNode(`Au prix de ${price/100} €`);
+    let newDiv = document.createElement('p')
+    newDiv.id = 'prix'
+    let priceTeddy = document.createTextNode(price/100)
     parent.appendChild(newParaPrice);
     newParaPrice.appendChild(contenu);
+    parent.appendChild(newDiv);
+    newDiv.appendChild(priceTeddy)
 }
 //Ajout balise <p> avec texte descrptif du nounours
 function addDescription(parent, description) {
@@ -108,6 +113,7 @@ function verifyCart() {
 function addToCart() {
 
     //Variables
+    let price = Number(document.getElementById('prix').textContent)
     let name = document.getElementById('title_product').textContent
     let color = document.getElementById('colors').value
     let quantity = Number(document.getElementById('quantity').value)
@@ -116,6 +122,7 @@ function addToCart() {
         color : color,
         quantity : quantity,
         id : id,
+        price : price
     }
     let isPresent = false
 
@@ -135,6 +142,7 @@ function addToCart() {
         }
     //Appel de la fonction qui permet de sauvegarder le cart dans le LocalStorage
     saveCart(cart)
+    cartCount()
 }
 
 //Fonction qui permet de sauvegarder cart dans le localstorage
