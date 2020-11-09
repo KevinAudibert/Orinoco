@@ -24,7 +24,7 @@ function createCart() {
             let div = document.createElement('div')
             //Variable qui permet de multiplier le prix avec la quantitée choisie
             let totalPrice = product.price * product.quantity
-            
+
             //Ajout au DOM
             panier.appendChild(produit)
             addImageTeddy(produit, product.id)
@@ -36,19 +36,33 @@ function createCart() {
             addPriceTeddy(div, product.id, totalPrice)
 
             //Ajout du bouton pour supprimer l'article du localStorage
-            btnRemoveItems(produit, keys)
+            btnRemoveItems(produit, keys, product)
         }
         load(keys)
     }
-    //addTotalPriceOrder() 
+    addTotalPriceOrder() 
 }
 
 function addTotalPriceOrder() {
     let divContent = document.getElementById('total_price')
     let newDiv = document.createElement('p')
-    let contenu = document.createTextNode('hello')
-    divContent.appendChild(newDiv)
-    newDiv.appendChild(contenu)
+    let contenu = document.createTextNode(`Vous n'avez rien dans votre Panier`)
+    let total = 0
+
+    for (let keys of Object.keys(localStorage)) {
+        for (product of JSON.parse(localStorage[keys])) {
+            let totalPriceProduct = product.quantity * product.price
+            total += totalPriceProduct
+        }
+    }
+    if (total === 0) {
+        divContent.appendChild(newDiv)
+        newDiv.appendChild(contenu)
+    } else {
+        let newContenu = document.createTextNode(`Prix Total à Payer ${total} €`)
+        divContent.appendChild(newDiv)
+        newDiv.appendChild(newContenu)
+    }
 }
 
 function addImageTeddy(produit, id) {
@@ -66,11 +80,13 @@ function addPriceTeddy(produit, id, txt) {
 }
 
 //fonction permettant de créer un bouton pour supprimer un article
-function btnRemoveItems(parent) {
+function btnRemoveItems(parent, id, product) {
     let btnRemove = document.createElement('button');
     let contents = document.createTextNode('Supprimer');
     btnRemove.type='submit'
-    //btnRemove.addEventListener('click', removeItem)
+    btnRemove.addEventListener('click', function(){ 
+    emptyCart(id, product)
+    })
     parent.appendChild(btnRemove);
     btnRemove.appendChild(contents);
 }
@@ -101,9 +117,27 @@ function addQuantityTeddy(parent, quantity) {
 }
 
 //fonction permettant de supprimer l'article
-function emptyCart(produit) {
-    window.localStorage.removeItem(produit); 
- }
+function emptyCart(id, product) {
+
+    let cart = JSON.parse(localStorage.getItem(id))
+    for (let [index, item] of cart.entries()) {
+        if (product.name === item.name && product.color === item.color) {
+            cart.splice(index, 1)
+            localStorage.setItem(id, JSON.stringify(cart))
+        }
+    }
+    verifyCart(cart, id)
+    window.location.reload()
+
+}
+
+//fonction permettant de verifier si la keys du localStorage posséde des valeurs
+function verifyCart(cart, id) {
+    if (cart.length === 0) {
+        localStorage.removeItem(id)  
+    }
+    return 
+}
 
 //Fonction permettant de mettre en forme de formulaire rempli par l'utilisateur pour l'envoi vers API 
 function createFormSend() {
@@ -124,16 +158,18 @@ function createFormSend() {
     }
     let products = Object.keys(localStorage)
     let send = { contact, products }
-    console.log(send)
-    //sendFormApi(send)
+    console.log('test')
+    sendFormApi(send)
 }
 
-//function sendFormApi(send){
-//fetch('http://localhost:3000/api/teddies/order', {
-//  method: "POST",
-//  body: JSON.stringify(send),
-//  headers: {"Content-type": "application/json; charset=UTF-8"}
-//})
-//.then (response => response.json)
-//.then (json => console.log(json))
-//}
+async function sendFormApi(send){
+    console.log('kiki')
+await fetch ('http://localhost:3000/api/teddies/order', {
+  method: "POST",
+  body: JSON.stringify(send),
+  headers: {"Content-type": "application/json; charset=UTF-8"}
+})
+.then ((response) => response.json)
+.then ((json) => console.log('coucou'))
+.catch(error => console.log(error))
+}

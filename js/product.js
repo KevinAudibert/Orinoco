@@ -126,6 +126,10 @@ function addToCart() {
     }
     let isPresent = false
 
+    if (quantity === 0) {
+        alert(`Merci de préciser la quantité`)
+    }
+    else {
     //Boucle sur le tableau avec la methode .entries()
     for (let [index, item] of cart.entries()) {
         //Si id produit choisi est présent dans le localStorage ainsi que la couleur
@@ -142,7 +146,8 @@ function addToCart() {
         }
     //Appel de la fonction qui permet de sauvegarder le cart dans le LocalStorage
     saveCart(cart)
-    cartCount()
+    window.location.reload()
+}
 }
 
 //Fonction qui permet de sauvegarder cart dans le localstorage
