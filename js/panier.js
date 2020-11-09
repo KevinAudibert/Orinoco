@@ -157,17 +157,18 @@ function createFormSend() {
         city : cityForm,
     }
     let products = Object.keys(localStorage)
-    let send = { contact, products }
-    console.log('test')
+    let send = {
+        contact, 
+        products,
+    }
     sendFormApi(send)
 }
 
 async function sendFormApi(send){
-    console.log('kiki')
-await fetch ('http://localhost:3000/api/teddies/order', {
-  method: "POST",
-  body: JSON.stringify(send),
-  headers: {"Content-type": "application/json; charset=UTF-8"}
+    await fetch ('http://localhost:3000/api/teddies/order', {
+    method: "POST",
+    body: JSON.stringify(send),
+    headers: {"Content-type": "application/json"}
 })
 .then ((response) => response.json)
 .then ((json) => console.log('coucou'))
