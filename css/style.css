@@ -16,6 +16,8 @@ html, body {
 /*Page Accueil*/
 
 body {
+    font-family: 'pacifico', sans-serif;
+    font-size: large;
     background-color: lightyellow;
     display: flex;
     flex-direction: column;
@@ -134,7 +136,7 @@ footer nav {
     padding-left: 2%;
     font-family: 'Pacifico', sans-serif;
     color: firebrick;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 footer nav p {
@@ -186,9 +188,9 @@ tr {
     width: 100%;
 }
 
-#form {
-    display: flex;
-    flex-direction: column;
+#content h3 {
+    font-size: xx-large;
+    margin: 5px;
 }
 
 #cart_count {
@@ -224,4 +226,150 @@ article img {
 #total_price {
     width: 100%;
     text-align: center;
+    font-size: x-large;
+}
+#total_price p {
+    margin: 0;
+}
+
+article div {
+    width: 30%;
+}
+article div h4 {
+    margin : 0;
+    font-size: larger;    
+}
+
+button, .product form input {
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	background-color:#f9f9f9;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+
+/*Mise en page formulaire*/
+
+#formulaire {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    flex-direction: column;
+    background-color: darkgray;
+    border-radius: 20px;
+    margin-bottom: 30px; 
+    margin-top: 30px;
+}
+#formulaire span {
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 35%; 
+}
+#formulaire h3 {
+    font-size: larger;
+
+}
+#form_name {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: auto; 
+}
+#form_name label {
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+#form_name input {
+        width: 40%; 
+}
+#form_lastname {
+      width: 100%;
+      margin: auto;
+      display: flex;
+      align-items: center; 
+}
+#form_lastname label {
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+#form_lastname input {
+        width: 40%; 
+}
+#form_email {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: auto; 
+}
+#form_email label {
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+#form_email input {
+        width: 40%; 
+}
+#form_address {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: auto; 
+}
+#form_address label {
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+#form_address input {
+        width: 40%; 
+}
+#form_city {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: auto; 
+}
+#form_city label {
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+}
+#form_city input {
+        width: 40%; 
+}
+#formulaire form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%; 
+}
+#formulaire input {
+      margin: 10px; 
 }

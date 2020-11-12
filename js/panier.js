@@ -40,13 +40,13 @@ function createCart() {
         }
         load(keys)
     }
-    addTotalPriceOrder() 
+    addTotalPriceOrder()
 }
 
 function addTotalPriceOrder() {
     let divContent = document.getElementById('total_price')
     let newDiv = document.createElement('p')
-    let contenu = document.createTextNode(`Vous n'avez rien dans votre Panier`)
+    let contenu = document.createTextNode(`Votre Panier est Vide`)
     let total = 0
 
     for (let keys of Object.keys(localStorage)) {
@@ -59,7 +59,7 @@ function addTotalPriceOrder() {
         divContent.appendChild(newDiv)
         newDiv.appendChild(contenu)
     } else {
-        let newContenu = document.createTextNode(`Prix Total à Payer ${total} €`)
+        let newContenu = document.createTextNode(`Total de votre commande ${total} €`)
         divContent.appendChild(newDiv)
         newDiv.appendChild(newContenu)
     }
@@ -139,8 +139,8 @@ function verifyCart(cart, id) {
     return 
 }
 
-//Fonction permettant de mettre en forme de formulaire rempli par l'utilisateur pour l'envoi vers API 
-function createFormSend() {
+//Fonction permettant de mettre en forme de formulaire rempli par l'utilisateur pour l'envoi vers API
+function sendFormOrder() {
 
     //variables qui reccupere les valeur du formulaire 
     let firstNameForm = document.getElementById('firstName').value
@@ -148,6 +148,7 @@ function createFormSend() {
     let emailForm = document.getElementById('email').value
     let addressForm = document.getElementById('address').value
     let cityForm = document.getElementById('city').value
+
     // mise en forme du formulaire pour le send vers API
     let contact = {
         firstName : firstNameForm,
@@ -161,16 +162,18 @@ function createFormSend() {
         contact, 
         products,
     }
-    sendFormApi(send)
+    console.log(contact)
+    console.log(products)
+    let json = JSON.stringify(send)
+    sendFormApi(json)
 }
 
-async function sendFormApi(send){
-    await fetch ('http://localhost:3000/api/teddies/order', {
+function sendFormApi(send){
+    fetch ('http://localhost:3000/api/teddies/order', {
     method: "POST",
     body: JSON.stringify(send),
-    headers: {"Content-type": "application/json"}
+    headers: {"Content-type": "application/json; charset=UTF-8"}
 })
-.then ((response) => response.json)
-.then ((json) => console.log('coucou'))
+.then (response => response.json)
 .catch(error => console.log(error))
 }
