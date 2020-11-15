@@ -139,8 +139,10 @@ function cleanCart(cart, id) {
     return 
 }
 
+//Variable qui cible le bouton envoyer commande
 let validPanier = document.getElementById('btn_order');
 
+//Fonction permettant de verifier et envoyer le formulaire vers l'API
 function sendOrderApi(event){
 
 //Variable pour récupérer les données de prenom, nom, adresse, ville, email
@@ -150,7 +152,7 @@ let adresse = document.getElementById('address');
 let ville = document.getElementById('city');
 let email = document.getElementById('email');
   
-//variable pour effectuer les tests de caractère sur les champs du formulaire
+//variable pour effectuer les tests de caractère sur les champs du formulaire avec REGEX
 let testNomVilleValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
 let adresseValid = /^[A-Z-a-z-0-9\s]{5,80}$/;
 let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -177,6 +179,7 @@ let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
     } else {
         event.preventDefault();
 
+//reccup les données rempli dans le formulaire
         let contact = {
             firstName: nom.value,
             lastName: prenom.value,
@@ -185,39 +188,44 @@ let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
             email: email.value,
         }
 
+//Reccup les id des produit présent dans le localstorage
         let products = Object.keys(localStorage);
 
-        //fusion de contact et produit
+//regroupe les données a envoyer (contact et id product)
         let dataSend = {
             contact,
             products,
         }
 
-        //Fonction permettant l'envoie des données a l'API
-          const sendApi = async function (donnees) {
-            try {
-              let reponse = await fetch ('http://localhost:3000/api/teddies/order', {
+//Fonction permettant l'envoie des données a l'API
+    const sendApi = async function (data) {
+        try {
+            let reponse = await fetch ('http://localhost:3000/api/teddies/order', {
                 method: 'POST',
-                body: JSON.stringify(donnees),
+                body: JSON.stringify(data),
                 headers: {
                   'Content-type': 'application/json'
                 }
-              });
-              if (reponse.ok){
+            });
+//Si la reponse de l'API est OK alors on reccup les données, ouvre la page html confirmation avec order id dans url
+            if (reponse.ok){
                 let donnees = await reponse.json();
                 window.location = 'confirmation.html?' + donnees.orderId;
                 localStorage.clear()
-
-              } else {
+//Si pas OK alors on affiche l'erreur en reponse
+            } else {
                 event.preventDefault();
                 alert ("L'erreur rencontrée est : " + reponse.status);
-              }
-            } catch (error){
-              alert ("erreur : " + error);
             }
-        };
-        sendApi(dataSend);
+        } 
+        catch (error){
+              alert ("erreur : " + error);
+        }
+    };
+//Appel de la focntion async pour la requete POST
+    sendApi(dataSend);
     }
 };
 
+//Clic avec appel de la fonction de verif et envoie a l'API
 validPanier.addEventListener('click', sendOrderApi)
