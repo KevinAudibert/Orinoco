@@ -126,54 +126,98 @@ function emptyCart(id, product) {
             localStorage.setItem(id, JSON.stringify(cart))
         }
     }
-    verifyCart(cart, id)
+    cleanCart(cart, id)
     window.location.reload()
 
 }
 
 //fonction permettant de verifier si la keys du localStorage posséde des valeurs
-function verifyCart(cart, id) {
+function cleanCart(cart, id) {
     if (cart.length === 0) {
         localStorage.removeItem(id)  
     }
     return 
 }
 
-//Fonction permettant de mettre en forme de formulaire rempli par l'utilisateur pour l'envoi vers API
-function sendFormOrder() {
+let validPanier = document.getElementById('btn_order');
 
-    //variables qui reccupere les valeur du formulaire 
-    let firstNameForm = document.getElementById('firstName').value
-    let lastNameForm = document.getElementById('lastName').value
-    let emailForm = document.getElementById('email').value
-    let addressForm = document.getElementById('address').value
-    let cityForm = document.getElementById('city').value
+function sendOrderApi(event){
 
-    // mise en forme du formulaire pour le send vers API
-    let contact = {
-        firstName : firstNameForm,
-        lastName : lastNameForm,
-        email : emailForm,
-        address : addressForm,
-        city : cityForm,
+//Variable pour récupérer les données de prenom, nom, adresse, ville, email
+let prenom = document.getElementById('firstName');
+let nom = document.getElementById('lastName');
+let adresse = document.getElementById('address');
+let ville = document.getElementById('city');
+let email = document.getElementById('email');
+  
+//variable pour effectuer les tests de caractère sur les champs du formulaire
+let testNomVilleValid = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+let adresseValid = /^[A-Z-a-z-0-9\s]{5,80}$/;
+let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+//vérification si le champ nom contient des caractères interdits
+    if (testNomVilleValid.test(nom.value) == false){
+        event.preventDefault();
+        alert("votre nom n'est pas conforme")
+//vérification si le champ prénom contient des caractères interdits
+    } else if (testNomVilleValid.test(prenom.value) == false){
+        event.preventDefault();
+        alert("votre prénom n'est pas conforme")
+//vérification si le champ adresse contient des caractères interdits
+    } else if (adresseValid.test(adresse.value) == false){
+        event.preventDefault();
+        alert("votre adresse n'est pas conforme")
+//vérification si le champ ville contient des caractères interdits
+    } else if (testNomVilleValid.test(ville.value) == false){
+        event.preventDefault();
+        alert("votre ville n'est pas conforme")
+    } else if (emailValid.test(email.value) == false){
+        event.preventDefault();
+        alert("votre adresse mail n'est pas conforme")
+    } else {
+        event.preventDefault();
+
+        let contact = {
+            firstName: nom.value,
+            lastName: prenom.value,
+            address: adresse.value,
+            city: ville.value,
+            email: email.value,
+        }
+
+        let products = Object.keys(localStorage);
+
+        //fusion de contact et produit
+        let dataSend = {
+            contact,
+            products,
+        }
+
+        //Fonction permettant l'envoie des données a l'API
+          const sendApi = async function (donnees) {
+            try {
+              let reponse = await fetch ('http://localhost:3000/api/teddies/order', {
+                method: 'POST',
+                body: JSON.stringify(donnees),
+                headers: {
+                  'Content-type': 'application/json'
+                }
+              });
+              if (reponse.ok){
+                let donnees = await reponse.json();
+                window.location = 'confirmation.html?' + donnees.orderId;
+                localStorage.clear()
+
+              } else {
+                event.preventDefault();
+                alert ("L'erreur rencontrée est : " + reponse.status);
+              }
+            } catch (error){
+              alert ("erreur : " + error);
+            }
+        };
+        sendApi(dataSend);
     }
-    let products = Object.keys(localStorage)
-    let send = {
-        contact, 
-        products,
-    }
-    console.log(contact)
-    console.log(products)
-    let json = JSON.stringify(send)
-    sendFormApi(json)
-}
+};
 
-function sendFormApi(send){
-    fetch ('http://localhost:3000/api/teddies/order', {
-    method: "POST",
-    body: JSON.stringify(send),
-    headers: {"Content-type": "application/json; charset=UTF-8"}
-})
-.then (response => response.json)
-.catch(error => console.log(error))
-}
+validPanier.addEventListener('click', sendOrderApi)

@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../css/style.css"/>
         <meta name="description" content="">
         <link rel="stylesheet" type="text/css" href="">
-        <script src="../js/panier.js"></script>
+
         <title>Orinoc'Ours | Panier</title>
     </head>
 
@@ -34,7 +34,7 @@
 
             <section id="formulaire">
                 <h3>Formulaire</h3>
-                    <form id="form">
+                    <form method="POST" id="form">
 
                         <div id="form_name">
                         <label id='first_name' for=firstName>Prénom :</label>
@@ -66,7 +66,8 @@
                         <span id="missing_city"></span>
                         </div>
 
-                        <button onclick=sendFormOrder() id="btn_order">Passer Commande</button>
+                        <input type="submit" value="Test" id="button_order">
+                        <button type="submit" id="btn_order">Passer Commande</button>
 
                     </form>
             </section>
@@ -84,5 +85,6 @@
             </nav>
         </footer>
     </body>
+    <script src="../js/panier.js"></script>
     <script> createCart() </script>
 </html>
