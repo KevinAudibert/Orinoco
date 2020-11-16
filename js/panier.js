@@ -210,8 +210,7 @@ let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
 //Si la reponse de l'API est OK alors on reccup les données, ouvre la page html confirmation avec order id dans url
             if (reponse.ok){
                 let donnees = await reponse.json();
-                window.location = 'confirmation.html?' + donnees.orderId;
-                localStorage.clear()
+                window.location = 'confirmation.html?OrderId=' + donnees.orderId;
 //Si pas OK alors on affiche l'erreur en reponse
             } else {
                 event.preventDefault();
