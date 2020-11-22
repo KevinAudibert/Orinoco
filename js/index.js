@@ -1,4 +1,5 @@
-fetch("http://localhost:3000/api/teddies")
+//fetch("http://localhost:3000/api/teddies")
+fetch("https://oc-p5-api.herokuapp.com/api/teddies")
 .then(response => response.json())
 .then(nounourses => listeProductNounours(nounourses));
 

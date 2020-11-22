@@ -1,5 +1,6 @@
 async function load(id) {
-    let response = await fetch(`http://localhost:3000/api/teddies/${id}`);
+    //let response = await fetch(`http://localhost:3000/api/teddies/${id}`);
+    let response = await fetch(`https://oc-p5-api.herokuapp.com/api/teddies/${id}`);
     let data = await response.json();
     let tableau = document.getElementsByClassName(`image_${id}`)
         for (let image of tableau) {
@@ -200,7 +201,8 @@ let emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
 //Fonction permettant l'envoie des données a l'API
     const sendApi = async function (data) {
         try {
-            let reponse = await fetch ('http://localhost:3000/api/teddies/order', {
+            //let reponse = await fetch ('http://localhost:3000/api/teddies/order', {
+            let reponse = await fetch (`https://oc-p5-api.herokuapp.com/api/teddies/order`, {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
