@@ -286,7 +286,7 @@ button, .product form input {
 }
 #form_name label {
         height: 100%;
-        width: 25%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center; 
@@ -302,7 +302,7 @@ button, .product form input {
 }
 #form_lastname label {
         height: 100%;
-        width: 25%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center; 
@@ -318,7 +318,7 @@ button, .product form input {
 }
 #form_email label {
         height: 100%;
-        width: 25%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center; 
@@ -334,7 +334,7 @@ button, .product form input {
 }
 #form_address label {
         height: 100%;
-        width: 25%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center; 
@@ -350,7 +350,7 @@ button, .product form input {
 }
 #form_city label {
         height: 100%;
-        width: 25%;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center; 
@@ -381,4 +381,20 @@ button, .product form input {
     border-radius: 20px;
     margin-bottom: 30px; 
     margin-top: 30px;
+}
+
+@media screen and (max-width: 600px) {
+
+    article img {
+        display: none;
+    }
+
+    article div {
+        width: 70%;
+    }
+
+    #formulaire {
+        margin: 20px;
+    }
+
 }

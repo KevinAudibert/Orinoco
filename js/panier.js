@@ -129,7 +129,6 @@ function emptyCart(id, product) {
     }
     cleanCart(cart, id)
     window.location.reload()
-
 }
 
 //fonction permettant de verifier si la keys du localStorage posséde des valeurs
