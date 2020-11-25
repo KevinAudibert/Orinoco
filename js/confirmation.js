@@ -3,14 +3,14 @@ var url_string = window.location.href
 var url = new URL(url_string);
 var orderId = url.searchParams.get("OrderId");
 
-function createDivOrderId(id) {
+function createDivOrderId(orderId) {
     let div = document.getElementById('confirm')
     let title = document.createElement('h4')
-    let contenuTitle = document.createTextNode('Confirmation Commande')
+    let contenuTitle = document.createTextNode(`Merci pour votre commande`)
     div.appendChild(title)
     title.appendChild(contenuTitle)
     let newDiv = document.createElement('p')
-    let contenu = document.createTextNode(`Numero de commande : ${id}`)
+    let contenu = document.createTextNode(`Numero de commande : ${orderId}`)
     div.appendChild(newDiv)
     newDiv.appendChild(contenu)
 
